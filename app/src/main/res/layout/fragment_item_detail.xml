@@ -1,0 +1,65 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fillViewport="true"
+    tools:context="settings.appium.com.settings.ItemDetailFragment">
+    <LinearLayout  android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+        <TextView android:id="@+id/title"
+            style="?android:attr/textAppearanceLarge" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true"/>
+        <TextView android:id="@+id/album"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/artist"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/data"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/displayName"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/duration"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/track"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/composer"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/year"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/dateAdded"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/dateModified"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/mimeType"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/bitRate"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/genre"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+        <TextView android:id="@+id/songsCount"
+            style="?android:attr/textAppearanceSmall" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textIsSelectable="true" android:layout_gravity="left"/>
+    </LinearLayout>
+</ScrollView>
