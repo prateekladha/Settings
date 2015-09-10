@@ -1,14 +1,25 @@
 package settings.appium.com.settings;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import java.util.TimeZone;
 
 import settings.appium.com.settings.Manager.SongContent;
 import settings.appium.com.settings.handlers.SongsManager;
@@ -29,6 +40,7 @@ public class ItemListFragment extends ListFragment {
      * activated item position. Only used on tablets.
      */
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String TAG = "Songs List";
 
     /**
      * The fragment's current callback object, which is notified of list item
@@ -70,6 +82,33 @@ public class ItemListFragment extends ListFragment {
     public ItemListFragment() {
     }
 
+    String getSongsMetaData(){
+
+        String result = "";
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+
+        for(int i = 0 ; i < SongContent.ITEMS.size(); i++){
+            SongContent.SongItem mItem = SongContent.ITEMS.get(i);
+            String dateString = formatter.format(new java.util.Date(Long.parseLong(mItem.date_added) * 1000));
+            MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
+            Uri contentUri = android.content.ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, Long.parseLong(mItem.id));
+            metaRetriever.setDataSource(getActivity(), contentUri);
+
+            String bitRate = metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE);
+            if(bitRate != null) {
+                bitRate = Long.parseLong(metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE)) / 1000 + " kbps";
+            }
+            else{
+                bitRate = "NA";
+            }
+
+            result += mItem.id + "," + mItem.title + "," + mItem.album + "," + mItem.artist + "," + mItem.data + "," + mItem.display_name + "," + convertDuration(Long.parseLong(mItem.duration)) + "," + mItem.track + "," + mItem.composer + "," + mItem.year + "," + dateString + "," + formatter.format(new java.util.Date(Long.parseLong(mItem.date_modified) * 1000)) + "," + mItem.mime_type + "," + bitRate + "," + mItem.genre + "\n";
+        }
+
+        return result;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +119,23 @@ public class ItemListFragment extends ListFragment {
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 SongContent.ITEMS));
+
+        /*FileWriter fileWriter = null;
+        try {
+            String content = getSongsMetaData();
+            File newTextFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/songsMetaData.txt");
+            fileWriter = new FileWriter(newTextFile);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                fileWriter.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }*/
     }
 
     @Override
@@ -157,5 +213,38 @@ public class ItemListFragment extends ListFragment {
         }
 
         mActivatedPosition = position;
+    }
+
+    public String convertDuration(long duration) {
+        String out = null;
+        long hours=0;
+        try {
+            hours = (duration / 3600000);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return out;
+        }
+        long remaining_minutes = (duration - (hours * 3600000)) / 60000;
+        String minutes = String.valueOf(remaining_minutes);
+        if (minutes.equals(0)) {
+            minutes = "00";
+        }
+        long remaining_seconds = (duration - (hours * 3600000) - (remaining_minutes * 60000));
+        String seconds = String.valueOf(remaining_seconds);
+        if (seconds.length() < 2) {
+            seconds = "00";
+        } else {
+            seconds = seconds.substring(0, 2);
+        }
+
+        if (hours > 0) {
+            out = hours + ":" + minutes + ":" + seconds;
+        } else {
+            out = minutes + ":" + seconds;
+        }
+
+        return out;
+
     }
 }
