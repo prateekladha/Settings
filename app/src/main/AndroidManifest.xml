@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -62,12 +62,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="settings.appium.com.settings.MessagesListListActivity" />
         </activity>
-        <service android:name=".MyAccessibilityService"
+
+        <service
+            android:name=".MyAccessibilityService"
             android:label="Toast Messages"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibilityservice" />
